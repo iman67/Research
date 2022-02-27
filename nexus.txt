@@ -1,0 +1,33 @@
+https://fauzislami.com/blog/2021/10/08/proxying-pypi-repository-in-nexus-repository-manager/
+
+
+
+import json
+def updateJsonFile():
+    jsonFile = open("book2.json", "r") # Open the JSON file for reading
+    data = json.load(jsonFile) # Read the JSON into the buffer
+    jsonFile.close() # Close the JSON file
+    ## Working with buffered content
+    #tmp = data["location"]
+    ##data ok is target to add data in json file
+    data["ConfigureSetting"]['WithOrigins'] = "ok" 
+    data["ConfigureSetting"]['UseHttps'] = None
+    ##Select array 
+    data["Serilog"]['WriteTo'][0]['Args']['nodeUris'] = None
+    #data["location"] = "path233"
+    #data["mode"] = "replay233"
+    #data["className"] = "test233"
+    ## Save our changes to JSON file
+    jsonFile = open("book2.json", "w+")
+    jsonFile.write(json.dumps(data, indent=1))
+    jsonFile.close()
+    
+updateJsonFile()
+
+
+
+sudo pip3 install --index-url http://192.168.1.7:8110/repository/pypi/ semopy
+ 
+pip3 install --index-url --trusted-host http://192.168.1.7:8110/repository/pypi/ semopy
+## it isnt work correctly
+pip install --index-url --trusted-host http://192.168.1.7:8110/repository/pypi/ ipo
